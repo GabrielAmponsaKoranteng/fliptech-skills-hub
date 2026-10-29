@@ -1,0 +1,8 @@
+/* Applied only while taking visual-regression screenshots (see playwright.config.ts).
+   Hides things that appear at unpredictable moments, so they can't make a screenshot flaky. */
+
+/* Toasts, e.g. "You have 1 new order", pop up a moment after sign-in. */
+.toasts { display: none !important; }
+
+/* A blinking text cursor or a focus ring left over from a click. */
+:focus { outline: none !important; }

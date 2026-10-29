@@ -1,0 +1,6 @@
+# Store text with LF line endings so diffs look the same on Windows, macOS and Linux.
+* text=auto eol=lf
+# Screenshot baselines and other binaries: never touch the bytes.
+*.png binary
+*.jpg binary
+*.ico binary

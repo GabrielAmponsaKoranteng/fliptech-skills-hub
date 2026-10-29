@@ -1,0 +1,17 @@
+# Dependencies and build output
+node_modules
+dist
+dist-e2e
+
+# Playwright results (the screenshot baselines in e2e/visual/__screenshots__ ARE kept)
+test-results
+playwright-report
+
+# Local settings and secrets
+.env.local
+.env.*.local
+
+# Editor and OS clutter
+.DS_Store
+Thumbs.db
+*.log

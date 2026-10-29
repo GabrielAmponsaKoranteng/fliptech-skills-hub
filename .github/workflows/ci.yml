@@ -1,0 +1,46 @@
+# Runs on every push and pull request. Each step must pass for the change to be green.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Type-check
+        run: npm run typecheck
+      - name: Unit tests (rules and mock server)
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Install the test browser
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end tests
+        run: npm run e2e
+      - name: Keep the Playwright report when tests fail
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report
+            test-results
+          retention-days: 7
+
+# Not run here:
+# - Visual regression (npm run visual): the baselines are Windows screenshots, and Linux renders
+#   fonts differently. Make a Linux set once (npm run visual:update on Linux, or in this workflow)
+#   before adding it.
+# - Performance budgets (npm run perf): they load photos and fonts from the internet.
