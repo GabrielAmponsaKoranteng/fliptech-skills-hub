@@ -65,27 +65,12 @@ export function Img({ src, alt = '', trade, className, style, sizes, priority, .
   );
 }
 
-/** Pinwheel brand mark: eight petals sweeping from violet to pink. */
-export function LogoMark({ size = 40 }: { size?: number }) {
-  const colors = ['#5b21b6', '#6d28d9', '#7c3aed', '#9333ea', '#a855f7', '#c026d3', '#db2777', '#ec4899'];
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true" className="logo-mark">
-      {colors.map((c, i) => (
-        <path key={c} d="M24 24 C 24 14, 30 6, 38 6 C 38 14, 32 22, 24 24 Z" fill={c} opacity={0.92} transform={`rotate(${i * 45} 24 24)`} />
-      ))}
-      <circle cx="24" cy="24" r="3.2" fill="#fff" />
-    </svg>
-  );
-}
-
+/** Official Fliptech Skills Hub logo. `light` swaps to the white-ink version for dark backgrounds. */
 export function Logo({ light, to = '/' }: { light?: boolean; to?: string }) {
   return (
     <Link to={to} className={`logo ${light ? 'light' : ''}`} aria-label="Fliptech Skills Hub home">
-      <LogoMark />
-      <span className="logo-text">
-        <strong>fliptech <em>Skills Hub</em></strong>
-        <span>Find. Learn. Create. Sell.</span>
-      </span>
+      <img src={light ? '/brand/fliptech-logo-light.png' : '/brand/fliptech-logo.png'} alt="Fliptech Skills Hub"
+        width={600} height={215} className="logo-img" decoding="async" />
     </Link>
   );
 }
